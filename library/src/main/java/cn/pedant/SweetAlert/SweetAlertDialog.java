@@ -35,6 +35,7 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
     private String mTitleText;
     private String mContentText;
     private boolean mShowCancel;
+    private boolean mShowConfirm = true;
     private boolean mShowContent;
     private String mCancelText;
     private String mConfirmText;
@@ -171,7 +172,7 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
         mSuccessFrame.setVisibility(View.GONE);
         mWarningFrame.setVisibility(View.GONE);
         mProgressFrame.setVisibility(View.GONE);
-        mConfirmButton.setVisibility(View.VISIBLE);
+        mConfirmButton.setVisibility(mShowConfirm ? View.VISIBLE : View.GONE);
 
         mConfirmButton.setBackgroundResource(R.drawable.blue_button_background);
         mErrorFrame.clearAnimation();
@@ -284,6 +285,17 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
             mCancelButton.setVisibility(mShowCancel ? View.VISIBLE : View.GONE);
         }
         return this;
+    }
+
+    public boolean isShowConfirmButton () {
+        return mShowConfirm;
+    }
+
+    public void showConfirmButton (boolean isShow) {
+        mShowConfirm = isShow;
+        if (mConfirmButton != null && mAlertType != SUCCESS_TYPE) {
+            mConfirmButton.setVisibility(mShowConfirm ? View.VISIBLE : View.GONE);
+        }
     }
 
     public boolean isShowContentText () {
